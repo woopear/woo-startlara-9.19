@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
+use App\Models\Role;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * get role of user
+     *
+     * @return Role
+     */
+    public function role()
+    {
+        return $this->hasOne(Role::class);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +29,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        // 'first_name',
+        // 'last_name',
+        // 'pseudo',
         'name',
+        // 'address',
+        // 'code_post',
+        // 'city',
+        // 'phone',
         'email',
         'password',
     ];

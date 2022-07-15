@@ -2,10 +2,12 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -20,22 +22,41 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique(User::class),
-            ],
-            'password' => $this->passwordRules(),
-        ])->validate();
+        $role = null;
 
-        return User::create([
-            'name' => $input['name'],
+        // validate create user form
+        $registerValidator = new RegisterRequest();
+        Validator::make(
+            $input,
+            $registerValidator->rules(),
+            $registerValidator->messages()
+        )->validate();
+
+        // get role 
+        if ($input['role']) {
+            $role = Role::find($input['role']);
+        } else {
+            $role = Role::where('libelle', 'auth');
+        }
+
+        // create user in bdd
+        $user = User::create([
+            // 'first_name' => $input['firstName'],
+            // 'last_name' => $input['lastName'],
+            // 'pseudo' => $input['pseudo'],
+            'name' => $input['name'], // delete this if use first_name
+            // 'name' => $input['firstName'] . ' ' . $input['lastName'],
+            // 'address' => $input['address'],
+            // 'code_post' => $input['codePost'],
+            // 'city' => $input['city'],
+            // 'phone' => $input['phone'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        // assign role in user
+        $role->users()->save($user);
+
+        return $user;
     }
 }
