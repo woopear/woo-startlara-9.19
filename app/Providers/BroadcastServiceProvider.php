@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Broadcast;
+use App\View\Components\input\inputSample;
+use App\View\Components\input\selectRole;
 
 class BroadcastServiceProvider extends ServiceProvider
 {
@@ -17,5 +20,8 @@ class BroadcastServiceProvider extends ServiceProvider
         Broadcast::routes();
 
         require base_path('routes/channels.php');
+
+        Blade::component('input-sample', inputSample::class);
+        Blade::component('select-role', selectRole::class);
     }
 }

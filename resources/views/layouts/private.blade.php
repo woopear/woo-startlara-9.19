@@ -6,7 +6,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <!-- livewire -->
         @livewireStyles
-        <title>{{ $titlePage ?? 'Larastup' }}</title>
+        <title>{{ $titlePage ?? 'woo-startlara' }}</title>
     </head>
     <body>
         @include('partials.header-private')

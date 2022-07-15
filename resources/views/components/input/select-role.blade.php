@@ -7,9 +7,11 @@
     <div class="mt-2 text-lg relative bg-gray-200 rounded-lg">
         <select class="block appearance-none bg-gray-200 rounded-lg py-2 px-4 w-full  outline-none" name="role" id="role">
             <option class="py-4 px-4 text-lg" value="">{{ $placeholder }}</option>
-            @foreach ($roles as $role)
-                <option class="py-4 px-4 text-lg" value="{{ $role->id }}">{{ $role->libelle }}</option>
-            @endforeach
+            @if ($roles)
+                @foreach ($roles as $role)
+                    <option class="py-4 px-4 text-lg" value="{{ $role->id }}">{{ $role->libelle }}</option>
+                @endforeach
+            @endif
         </select>
         {{-- icon arrow --}}
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
