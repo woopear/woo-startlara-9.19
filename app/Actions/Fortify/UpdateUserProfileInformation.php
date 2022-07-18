@@ -19,8 +19,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     public function update($user, array $input)
     {
         Validator::make($input, [
+            // rules
+            // 'firstName' => ['required', 'string'],
+            // 'lastName' => ['required', 'string'],
+            // 'pseudo' => ['string'],
             'name' => ['required', 'string', 'max:255'],
-
+            // 'address' => ['string'],
+            // 'codePost' => ['string'],
+            // 'city' => ['string'],
+            // 'phone' => ['string'],
             'email' => [
                 'required',
                 'string',
@@ -30,12 +37,22 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             ],
         ])->validateWithBag('updateProfileInformation');
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if (
+            $input['email'] !== $user->email &&
+            $user instanceof MustVerifyEmail
+        ) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
+                // 'first_name' => $input['firstName'],
+                // 'last_name' => $input['lastName'],
+                // 'pseudo' => $input['pseudo'],
                 'name' => $input['name'],
+                // 'name' => $input['firstName'] . ' ' . $input['lastName'],
+                // 'address' => $input['address'],
+                // 'code_post' => $input['codePost'],
+                // 'city' => $input['city'],
+                // 'phone' => $input['phone'],
                 'email' => $input['email'],
             ])->save();
         }
@@ -51,7 +68,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     protected function updateVerifiedUser($user, array $input)
     {
         $user->forceFill([
+            // 'first_name' => $input['firstName'],
+            // 'last_name' => $input['lastName'],
+            // 'pseudo' => $input['pseudo'],
             'name' => $input['name'],
+            // 'name' => $input['firstName'] . ' ' . $input['lastName'],
+            // 'address' => $input['address'],
+            // 'code_post' => $input['codePost'],
+            // 'city' => $input['city'],
+            // 'phone' => $input['phone'],
             'email' => $input['email'],
             'email_verified_at' => null,
         ])->save();

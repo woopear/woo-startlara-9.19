@@ -80,7 +80,14 @@ contains the component documentation
 $ php artisan route:list
 ```
 
-## Doc of components
+## Doc of components  
+
+> for a better understanding, pages have been created  
+> to use certain components, but you can use the components  
+> as you see fit.  
+> ex: resources/views/component/user/form-update.php  
+> is in a page but you are free to use it without a page.  
+
 - [btn](./readme/btn.md)
 - [form](./readme/form.md)
 - [icon](./readme/icon.md)
