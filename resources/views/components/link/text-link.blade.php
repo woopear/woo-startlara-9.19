@@ -7,6 +7,7 @@
 
 @if (isset($textlink))
 <a 
+    {{ $attributes }}
     @if($link) href="{{ $link }}" @endif
     class="{{-- add text-color hover:text-color --}} {{ $classlink }} {{ $textsize }} block cursor-pointer"
 >

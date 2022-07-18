@@ -5,7 +5,7 @@
 <x-form
     {{ $attributes }}
     classdiv="{{ $classdiv }}"
-    action="{{ route('password.request') }}"
+    action="{{ route('password.email') }}"
     textbtn="Faire une demande"
 >
     {{-- email --}}

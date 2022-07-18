@@ -9,5 +9,6 @@
     <x-btn.logout/>
 
     <h1>Modifier mon profil</h1>
+    {{-- update profil --}}
     <x-user.form-update-profil/>
 @endsection

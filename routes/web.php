@@ -23,4 +23,9 @@ Route::middleware(['auth', 'verified'])->name('private.')->group(function () {
     Route::get('/private/dashboard', function () {
         return view('private/dashboard');
     })->name('dashboard');
+
+    // route name => private.user-update-password
+    Route::get('/private/update-password', function () {
+        return view('auth/update-password');
+    })->name('user-update-password');
 });
