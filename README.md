@@ -62,6 +62,15 @@ folder for all views regarding authentication
 - `ressources/views/components`  
 folder containing all application components  
 
+- `vendor/laravel/fortify/src/Rules/Password.php`  
+you can modify the password validation rules and  
+also the error messages linked to the password,  
+default language is English, [you see this](./readme/rules-password-french.md) for french  
+
+- `lang/en`  
+look this folder and all files for change langage  
+and update phrasing with your language.
+
 - folder `readme` you can delete it it only  
 contains the component documentation 
 
