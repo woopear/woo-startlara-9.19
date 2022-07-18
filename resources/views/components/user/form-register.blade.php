@@ -67,6 +67,7 @@
     {{-- email --}}
     <x-input.input-sample 
         name="email" 
+        type="email"
         placeholder="E-mail" 
         required
     />

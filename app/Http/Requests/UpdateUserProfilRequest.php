@@ -2,15 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Actions\Fortify\PasswordValidationRules;
 
-class RegisterRequest extends FormRequest
+class UpdateUserProfilRequest extends FormRequest
 {
-    use PasswordValidationRules;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -18,7 +14,12 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $userRole = $this->user->getRole();
+        if ($userRole->libelle == 'root' || $userRole->libelle == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -26,14 +27,14 @@ class RegisterRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules($user)
     {
         return [
             // rules
             // 'firstName' => ['required', 'string'],
             // 'lastName' => ['required', 'string'],
             // 'pseudo' => ['string'],
-            'name' => ['required', 'string', 'max:255'], // delete this if use first_name
+            'name' => ['required', 'string', 'max:255'],
             // 'address' => ['string'],
             // 'codePost' => ['string'],
             // 'city' => ['string'],
@@ -43,16 +44,15 @@ class RegisterRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class),
-            ],
-            'password' => $this->passwordRules(),
+                Rule::unique('users')->ignore($user->id),
+            ]
         ];
     }
 
     /**
-     * Get the error messages for the defined validation rules.
+     * message of validation for update user
      *
-     * @return array
+     * @return void
      */
     public function messages()
     {

@@ -4,7 +4,6 @@ namespace App\Actions\Fortify;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Validator;
@@ -36,7 +35,7 @@ class CreateNewUser implements CreatesNewUsers
         if ($input['role']) {
             $role = Role::find($input['role']);
         } else {
-            $role = Role::where('libelle', 'auth');
+            $role = Role::query()->where('libelle', '=', 'auth')->firstOrFail();
         }
 
         // create user in bdd

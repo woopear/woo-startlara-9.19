@@ -48,6 +48,6 @@
 
     {{-- error validator input --}}
     @error($name)
-        <p class="{{ $classdiverror }}">{{ $message }}</p>
+        <p class="my-4 font-medium text-red-500 text-xs {{ $classdiverror }}">{{ $message }}</p>
     @enderror
 </div>

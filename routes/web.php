@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 // private routes
-Route::middleware(['auth'])->name('private.')->group(function () {
+Route::middleware(['auth', 'verified'])->name('private.')->group(function () {
     // route name => private.dashboard
     Route::get('/private/dashboard', function () {
         return view('private/dashboard');

@@ -1,15 +1,19 @@
+@props([
+    'selected' => null,
+])
+
 <div class="text-black mt-4 mb-8">
     {{-- if label exist --}}
     @if($label)
         <label class="text-lg" for="role">{{ $label }}</label>
     @endif
     {{-- option selected for input --}}
-    <div class="mt-2 text-lg relative bg-gray-200 rounded-lg">
+    <div class="mt-2 relative bg-gray-200 rounded-lg">
         <select class="block appearance-none bg-gray-200 rounded-lg py-2 px-4 w-full  outline-none" name="role" id="role">
             <option class="py-4 px-4 text-lg" value="">{{ $placeholder }}</option>
             @if ($roles)
                 @foreach ($roles as $role)
-                    <option class="py-4 px-4 text-lg" value="{{ $role->id }}">{{ $role->libelle }}</option>
+                    <option @if($selected == $role->libelle) selected @endif class="py-4 px-4 text-lg" value="{{ $role->id }}">{{ $role->libelle }}</option>
                 @endforeach
             @endif
         </select>

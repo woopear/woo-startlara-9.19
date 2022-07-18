@@ -18,6 +18,7 @@
     {{-- email --}}
     <x-input.input-sample 
         name="email" 
+        type="email"
         placeholder="Confirmer votre email" 
         required
     />

@@ -93,4 +93,11 @@ $ php artisan route:list
 - [icon](./readme/icon.md)
 - [input](./readme/input.md)
 - [link](./readme/link.md)
-- [user](./readme/user.md)
+- [user](./readme/user.md)  
+
+## validation && error form  
+
+- using `session('status')` for validation messages  
+and `$error` for form error handling. For errors,  
+the input component only manages this, for validation  
+you will have to implement the `session('status')` yourself

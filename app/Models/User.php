@@ -16,7 +16,17 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * get role of user
      *
-     * @return Role
+     * @return void
+     */
+    public function getRole()
+    {
+        return Role::find($this->role_id);
+    }
+
+    /**
+     * has got role of user ? 
+     *
+     * @return boolean
      */
     public function role()
     {

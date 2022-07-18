@@ -2,13 +2,36 @@
 
 namespace App\Actions\Fortify;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Requests\UpdateUserProfilRequest;
+use App\Models\Role;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
+    /**
+     * create object for pproperties update for user updated
+     *
+     * @param array $input
+     * @return void
+     */
+    protected function userFill(array $input)
+    {
+        return [
+            // 'first_name' => $input['firstName'],
+            // 'last_name' => $input['lastName'],
+            // 'pseudo' => $input['pseudo'],
+            'name' => $input['name'],
+            // 'name' => $input['firstName'] . ' ' . $input['lastName'],
+            // 'address' => $input['address'],
+            // 'code_post' => $input['codePost'],
+            // 'city' => $input['city'],
+            // 'phone' => $input['phone'],
+            'email' => $input['email'],
+        ];
+    }
+
     /**
      * Validate and update the given user's profile information.
      *
@@ -18,24 +41,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update($user, array $input)
     {
-        Validator::make($input, [
-            // rules
-            // 'firstName' => ['required', 'string'],
-            // 'lastName' => ['required', 'string'],
-            // 'pseudo' => ['string'],
-            'name' => ['required', 'string', 'max:255'],
-            // 'address' => ['string'],
-            // 'codePost' => ['string'],
-            // 'city' => ['string'],
-            // 'phone' => ['string'],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users')->ignore($user->id),
-            ],
-        ])->validateWithBag('updateProfileInformation');
+        // validate form update user
+        $requestUserUpdate = new UpdateUserProfilRequest();
+        Validator::make(
+            $input,
+            $requestUserUpdate->rules($user),
+            $requestUserUpdate->messages(),
+        )->validate();
 
         if (
             $input['email'] !== $user->email &&
@@ -43,18 +55,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ) {
             $this->updateVerifiedUser($user, $input);
         } else {
-            $user->forceFill([
-                // 'first_name' => $input['firstName'],
-                // 'last_name' => $input['lastName'],
-                // 'pseudo' => $input['pseudo'],
-                'name' => $input['name'],
-                // 'name' => $input['firstName'] . ' ' . $input['lastName'],
-                // 'address' => $input['address'],
-                // 'code_post' => $input['codePost'],
-                // 'city' => $input['city'],
-                // 'phone' => $input['phone'],
-                'email' => $input['email'],
-            ])->save();
+            $user->forceFill($this->userFill($input))->save();
+            $this->updateRole($user, $input);
         }
     }
 
@@ -67,20 +69,32 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     protected function updateVerifiedUser($user, array $input)
     {
-        $user->forceFill([
-            // 'first_name' => $input['firstName'],
-            // 'last_name' => $input['lastName'],
-            // 'pseudo' => $input['pseudo'],
-            'name' => $input['name'],
-            // 'name' => $input['firstName'] . ' ' . $input['lastName'],
-            // 'address' => $input['address'],
-            // 'code_post' => $input['codePost'],
-            // 'city' => $input['city'],
-            // 'phone' => $input['phone'],
-            'email' => $input['email'],
-            'email_verified_at' => null,
-        ])->save();
+        $user->forceFill($this->userFill($input))->save();
+
+        $this->updateRole($user, $input);
 
         $user->sendEmailVerificationNotification();
+    }
+
+    /**
+     * update role of user if input role exist and role 
+     * current user is root or admin
+     *
+     * @param [type] $user
+     * @param array $input
+     * @return void
+     */
+    protected function updateRole($user, array $input)
+    {
+        $roleUserCurrent = $user->getRole();
+        if (
+            $roleUserCurrent->libelle == 'root' || $roleUserCurrent->libelle == 'admin'
+            && $input['role'] != ''
+        ) {
+            // get role request
+            $role = Role::find($input['role']);
+            // update role in user
+            $role->users()->save($user);
+        }
     }
 }
