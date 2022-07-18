@@ -1,8 +1,13 @@
 # Woo start lara version 9.19  
 
 > template use  
-> - project init with tailwind, alpineJs, unpolyJs,  
-    fortify for auth sample
+> - project init with   
+    - laravel 9.19  
+    - tailwind 3.1.6  
+    - alpineJs 3.10.2  
+    - unpolyJs 2.6.1  
+    - fortify for auth sample 1.13  
+    - livewire 2.10  
 
 ## Use project
 
@@ -37,5 +42,39 @@ $ php artisan tinker
 # check your database for see is good
 ```  
 
-## Menu of doc
-- [Components]()
+## structure  
+
+- `ressources/views/private`  
+folder containing all the backoffice part  
+access only if logged in  
+
+- `ressources/views/layouts`  
+folder contains public layouts (app.blade.php)
+and the private layout (private.blade.php)  
+
+- `ressources/views/partials`  
+this folder contains the header and footer of both parts
+public and private  
+
+- `ressources/views/auth`  
+folder for all views regarding authentication  
+
+- `ressources/views/components`  
+folder containing all application components  
+
+- folder `readme` you can delete it it only  
+contains the component documentation 
+
+## Route  
+- for see all routes  
+```bash
+$ php artisan route:list
+```
+
+## Doc of components
+- [btn](./readme/btn.md)
+- [form](./readme/form.md)
+- [icon](./readme/icon.md)
+- [input](./readme/input.md)
+- [link](./readme/link.md)
+- [user](./readme/user.md)
