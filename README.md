@@ -4,7 +4,6 @@
 > - project init with   
     - laravel 9.19  
     - tailwind 3.1.6  
-    - flowbite 1.4.7  
     - alpineJs 3.10.2  
     - unpolyJs 2.6.1  
     - fortify for auth sample 1.13  
@@ -101,4 +100,16 @@ $ php artisan route:list
 - using `session('status')` for validation messages  
 and `$error` for form error handling. For errors,  
 the input component only manages this, for validation  
-you will have to implement the `session('status')` yourself
+you will have to implement the `session('status')` yourself  
+
+## confirm password  
+
+- a confirm-password component is in the  
+`resources/views/auth` folder, which opens  
+in modal thanks to `unpolyJs`, you can remove  
+this behavior by deleting in the file  
+`resources/views/components/user/form-update-profile.blade.php`  
+the up-layer attribute on the link component all down in the form.  
+Then in the component `ressources/views/auth/confirm-password.blade.php`    
+remove all attributes from the main div and  
+integrate the content into the page layout of your choice.
