@@ -4,6 +4,7 @@
 > - project init with   
     - laravel 9.19  
     - tailwind 3.1.6  
+    - flowbite 1.4.7  
     - alpineJs 3.10.2  
     - unpolyJs 2.6.1  
     - fortify for auth sample 1.13  

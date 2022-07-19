@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <!-- livewire -->
-        @livewireStyles
+        @livewireStyles()
         <title>{{ $titlePage ?? 'woo-startlara' }}</title>
     </head>
     <body>
@@ -24,6 +24,6 @@
         </main>
 
         <!-- livewire -->
-        @livewireScripts
+        @livewireScripts()
     </body>
 </html>

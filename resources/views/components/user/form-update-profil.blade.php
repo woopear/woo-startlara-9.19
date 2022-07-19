@@ -88,10 +88,12 @@
 
         {{-- link for update password --}}
         <x-link.text-link
+            type="button"
             classlink="text-red-600"
             textsize="text-xs mb-4 font-medium hover:text-red-400" 
             textlink="Modifier mon mot de passe"
             link="{{ route('private.user-update-password') }}"
+            up-layer="new"
         />
     </x-form>
 </section>
