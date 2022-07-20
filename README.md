@@ -74,11 +74,15 @@ and update phrasing with your language.
 - folder `readme` you can delete it it only  
 contains the component documentation 
 
-## Route  
+## Routes    
 - for see all routes  
 ```bash
 $ php artisan route:list
-```
+```  
+
+## dark mode  
+
+- use this `<x-btn.mode-dark/>` where you want 
 
 ## Doc of components  
 
