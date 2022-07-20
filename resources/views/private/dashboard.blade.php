@@ -3,7 +3,7 @@
 @section('content-private')
     <p>Dashboard</p>
 
-    <p>Bienvenue {{ auth()->user()->name }}</p>
+    <p>Bienvenue {{ auth()->user()->name ?? 'à vous !' }}</p>
 
     {{-- btn deconnection user --}}
     <x-btn.logout/>

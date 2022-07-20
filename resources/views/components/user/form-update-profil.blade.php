@@ -5,11 +5,6 @@
 
 {{-- uncomment the inputs according to your user --}}
 <section class="{{ $classsection }}">
-    @if (session('status'))
-        <div class="mb-4 font-medium text-xs text-green-500">
-            Profil modifié avec succes
-        </div>
-    @endif
     <x-form
         {{ $attributes }}
         classdiv="{{ $classdiv }}"
@@ -93,7 +88,15 @@
             textsize="text-xs mb-4 font-medium hover:text-red-400" 
             textlink="Modifier mon mot de passe"
             link="{{ route('private.user-update-password') }}"
-            up-layer="new"
+        />
+
+        {{-- link for delete user--}}
+        <x-link.text-link
+            type="button"
+            classlink="text-red-600"
+            textsize="text-xs mb-4 font-medium hover:text-red-400" 
+            textlink="Supprimer mon compte"
+            link="{{ route('private.user-delete', ['id' => auth()->user()->id]) }}"
         />
     </x-form>
 </section>

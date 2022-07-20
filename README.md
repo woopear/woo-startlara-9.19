@@ -100,16 +100,23 @@ $ php artisan route:list
 - using `session('status')` for validation messages  
 and `$error` for form error handling. For errors,  
 the input component only manages this, for validation  
-you will have to implement the `session('status')` yourself  
+we use a partial session-notif which is in the private layout  
 
-## confirm password  
+## the different identification functions  
 
-- a confirm-password component is in the  
-`resources/views/auth` folder, which opens  
-in modal thanks to `unpolyJs`, you can remove  
-this behavior by deleting in the file  
-`resources/views/components/user/form-update-profile.blade.php`  
-the up-layer attribute on the link component all down in the form.  
-Then in the component `ressources/views/auth/confirm-password.blade.php`    
-remove all attributes from the main div and  
-integrate the content into the page layout of your choice.
+- `creation of the user`, access to the register page  
+then fill in the form click on the button of the form,  
+this will create the account and send an email  
+to validate the email address, if you do not validate you will not  
+be able to access the account.  
+
+- basic user login  
+
+- `forgotten password`, fill in the email,  
+send the reset email, click in the email,  
+redirect to the password modification page,  
+fill in the form, modify the password redirect to the login page  
+
+- `modification of the password`, request confirmation  
+of the password of the connected user,  
+access to the page for modifying the password

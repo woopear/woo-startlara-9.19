@@ -10,15 +10,16 @@
     </head>
     <body>
         @include('partials.header-private')
-
+        
         <main mainprivate>
             <section sideleftmenu>
                 @include('partials.nav-side-left-private')
-
+                
                 @include('partials.footer-private')
             </section>
-
+            
             <section contentmain>
+                @include('partials.session-notif')
                 @yield('content-private')
             </section>
         </main>

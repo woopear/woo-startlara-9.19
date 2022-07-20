@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 // private routes
 Route::middleware(['auth', 'verified'])->name('private.')->group(function () {
@@ -28,4 +29,8 @@ Route::middleware(['auth', 'verified'])->name('private.')->group(function () {
     Route::get('/private/update-password', function () {
         return view('auth/update-password');
     })->middleware(['password.confirm'])->name('user-update-password');
+
+    // route name => private.user-delete
+    Route::get('/private/user/delete/{id}', [UserController::class, 'delete'])
+        ->middleware(['password.confirm'])->name('user-delete');
 });
