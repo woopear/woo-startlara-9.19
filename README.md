@@ -42,7 +42,7 @@ $ php artisan tinker
 # check your database for see is good
 ```  
 
-## structure  
+## Structure  
 
 - `ressources/views/private`  
 folder containing all the backoffice part  
@@ -80,7 +80,7 @@ contains the component documentation
 $ php artisan route:list
 ```  
 
-## dark mode  
+## Dark mode  
 
 - use this `<x-btn.mode-dark/>` where you want 
 
@@ -99,14 +99,14 @@ $ php artisan route:list
 - [link](./readme/link.md)
 - [user](./readme/user.md)  
 
-## validation && error form  
+## Message validation && error form  
 
 - using `session('status')` for validation messages  
 and `$error` for form error handling. For errors,  
 the input component only manages this, for validation  
 we use a partial session-notif which is in the private layout  
 
-## the different identification functions  
+## The different identification features  
 
 - `creation of the user`, access to the register page  
 then fill in the form click on the button of the form,  
